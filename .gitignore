@@ -1,0 +1,12 @@
+.idea
+.directory
+logs/
+.DS_Store
+.bin
+.vscode
+bosh/
+env/
+*.py[cod]
+__pycache__/
+bin/
+lib/
