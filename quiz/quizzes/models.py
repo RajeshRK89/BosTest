@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -44,3 +45,31 @@ class answer(models.Model):
         verbose_name_plural='Answers'
         db_table = 'answer'
 
+
+#need to create score and wwho has taken in
+class quizAttemptInfo(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    quiz = models.ForeignKey(quiz,on_delete=models.CASCADE)
+    correct = models.BooleanField(default=False)
+    created_on = models.DateTimeField(auto_now=True, verbose_name='Created On')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name='Attempt'
+        verbose_name_plural='Attempts'
+        db_table = 'attempt'
+        
+class response(models.Model):
+    attemptee= models.ForeignKey(quizAttemptInfo,on_delete=models.CASCADE)
+    question =  models.ForeignKey(question,on_delete=models.CASCADE)
+    answer =  models.ForeignKey(answer,on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.question.name
+
+    class Meta:
+        verbose_name='Response'
+        verbose_name_plural='Responses'
+        db_table = 'response'
